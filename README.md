@@ -1,3 +1,5 @@
+fork of drone/drone-go to fix 2 functions used in hrfee/buildrone's woodpecker CI branch.
+
 # drone-go
 
 [![Go.dev](https://pkg.go.dev/badge/github.com/drone/drone-go)](https://pkg.go.dev/github.com/drone/drone-go?tab=doc)
