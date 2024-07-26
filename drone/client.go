@@ -34,9 +34,9 @@ const (
 	pathReposAll     = "%s/api/repos"
 	pathChown        = "%s/api/repos/%s/%s/chown"
 	pathRepair       = "%s/api/repos/%s/%s/repair"
-	pathRepo         = "%s/repos/lookup/%s/%s"
+	pathRepo         = "%s/api/repos/lookup/%s/%s"
 	// pathRepo                 = "%s/api/repos/%s/%s"
-	pathBuilds = "%s/repos/%d/pipelines?%s"
+	pathBuilds = "%s/api/repos/%d/pipelines?%s"
 	// pathBuilds            = "%s/api/repos/%s/%s/builds?%s"
 	pathBuild             = "%s/api/repos/%s/%s/builds/%v"
 	pathApprove           = "%s/api/repos/%s/%s/builds/%d/approve/%d"
@@ -183,6 +183,7 @@ func (c *client) Repo(owner, name string) (*Repo, error) {
 
 // RepoList returns a list of all repositories to which
 // the user has explicit access in the host system.
+// Woodpecker quirk: Doesn't include the username/namespace since it's kinda implied.
 func (c *client) RepoList() ([]*Repo, error) {
 	var out []*Repo
 	uri := fmt.Sprintf(pathRepos, c.addr)
@@ -289,10 +290,8 @@ func (c *client) RepoIDFromFullName(owner, name string) int64 {
 // FIXME: Get repo ID, somehow
 func (c *client) BuildList(owner, name string, opts ListOptions) ([]*Build, error) {
 	var out []*Build
-
 	// uri := fmt.Sprintf(pathBuilds, c.addr, owner, name, encodeListOptions(opts))
 	uri := fmt.Sprintf(pathBuilds, c.addr, c.RepoIDFromFullName(owner, name), encodeListOptions(opts))
-	fmt.Printf("using uri %s\n", uri)
 	err := c.get(uri, &out)
 	return out, err
 }
