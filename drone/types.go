@@ -131,29 +131,29 @@ type (
 		Branch       string        `json:"branch"`
 		ChangedFiles []interface{} `json:"changed_files"`
 		Commit       string        `json:"commit"`
-		CreatedAt    int           `json:"created_at"`
+		CreatedAt    int64         `json:"created_at"`
 		DeployTask   string        `json:"deploy_task"`
 		DeployTo     string        `json:"deploy_to"`
 		Errors       []interface{} `json:"errors"`
 		Event        string        `json:"event"`
-		FinishedAt   int           `json:"finished_at"`
+		FinishedAt   int64         `json:"finished_at"`
 		ForgeURL     string        `json:"forge_url"`
-		ID           int           `json:"id"`
+		ID           int64         `json:"id"`
 		IsPrerelease bool          `json:"is_prerelease"`
 		Message      string        `json:"message"`
-		Number       int           `json:"number"`
-		Parent       int           `json:"parent"`
+		Number       int64         `json:"number"`
+		Parent       int64         `json:"parent"`
 		PrLabels     []interface{} `json:"pr_labels"`
 		Ref          string        `json:"ref"`
 		Refspec      string        `json:"refspec"`
-		ReviewedAt   int           `json:"reviewed_at"`
+		ReviewedAt   int64         `json:"reviewed_at"`
 		ReviewedBy   string        `json:"reviewed_by"`
 		Sender       string        `json:"sender"`
-		StartedAt    int           `json:"started_at"`
+		StartedAt    int64         `json:"started_at"`
 		Status       string        `json:"status"`
-		Timestamp    int           `json:"timestamp"`
+		Timestamp    int64         `json:"timestamp"`
 		Title        string        `json:"title"`
-		UpdatedAt    int           `json:"updated_at"`
+		UpdatedAt    int64         `json:"updated_at"`
 		Variables    struct {
 		} `json:"variables"`
 		Workflows []interface{} `json:"workflows"`
