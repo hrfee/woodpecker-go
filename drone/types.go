@@ -125,41 +125,38 @@ type (
 
 	// Build defines a build object.
 	Build struct {
-		ID           int64             `json:"id"`
-		RepoID       int64             `json:"repo_id"`
-		Trigger      string            `json:"trigger"`
-		Number       int64             `json:"number"`
-		Parent       int64             `json:"parent,omitempty"`
-		Status       string            `json:"status"`
-		Error        string            `json:"error,omitempty"`
-		Event        string            `json:"event"`
-		Action       string            `json:"action"`
-		Link         string            `json:"link"`
-		Timestamp    int64             `json:"timestamp"`
-		Title        string            `json:"title,omitempty"`
-		Message      string            `json:"message"`
-		Before       string            `json:"before"`
-		After        string            `json:"after"`
-		Ref          string            `json:"ref"`
-		Fork         string            `json:"source_repo"`
-		Source       string            `json:"source"`
-		Target       string            `json:"target"`
-		Author       string            `json:"author_login"`
-		AuthorName   string            `json:"author_name"`
-		AuthorEmail  string            `json:"author_email"`
-		AuthorAvatar string            `json:"author_avatar"`
-		Sender       string            `json:"sender"`
-		Params       map[string]string `json:"params,omitempty"`
-		Cron         string            `json:"cron,omitempty"`
-		Deploy       string            `json:"deploy_to,omitempty"`
-		DeployID     int64             `json:"deploy_id,omitempty"`
-		Debug        bool              `json:"debug"`
-		Started      int64             `json:"started"`
-		Finished     int64             `json:"finished"`
-		Created      int64             `json:"created"`
-		Updated      int64             `json:"updated"`
-		Version      int64             `json:"version"`
-		Stages       []*Stage          `json:"stages,omitempty"`
+		Author       string        `json:"author"`
+		AuthorAvatar string        `json:"author_avatar"`
+		AuthorEmail  string        `json:"author_email"`
+		Branch       string        `json:"branch"`
+		ChangedFiles []interface{} `json:"changed_files"`
+		Commit       string        `json:"commit"`
+		CreatedAt    int           `json:"created_at"`
+		DeployTask   string        `json:"deploy_task"`
+		DeployTo     string        `json:"deploy_to"`
+		Errors       []interface{} `json:"errors"`
+		Event        string        `json:"event"`
+		FinishedAt   int           `json:"finished_at"`
+		ForgeURL     string        `json:"forge_url"`
+		ID           int           `json:"id"`
+		IsPrerelease bool          `json:"is_prerelease"`
+		Message      string        `json:"message"`
+		Number       int           `json:"number"`
+		Parent       int           `json:"parent"`
+		PrLabels     []interface{} `json:"pr_labels"`
+		Ref          string        `json:"ref"`
+		Refspec      string        `json:"refspec"`
+		ReviewedAt   int           `json:"reviewed_at"`
+		ReviewedBy   string        `json:"reviewed_by"`
+		Sender       string        `json:"sender"`
+		StartedAt    int           `json:"started_at"`
+		Status       string        `json:"status"`
+		Timestamp    int           `json:"timestamp"`
+		Title        string        `json:"title"`
+		UpdatedAt    int           `json:"updated_at"`
+		Variables    struct {
+		} `json:"variables"`
+		Workflows []interface{} `json:"workflows"`
 	}
 
 	// Stage represents a stage of build execution.
