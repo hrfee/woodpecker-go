@@ -27,15 +27,17 @@ import (
 )
 
 const (
-	pathSelf              = "%s/api/user"
-	pathRepos             = "%s/api/user/repos"
-	pathIncomplete        = "%s/api/builds/incomplete"
-	pathIncompleteV2      = "%s/api/builds/incomplete/v2"
-	pathReposAll          = "%s/api/repos"
-	pathRepo              = "%s/api/repos/%s/%s"
-	pathChown             = "%s/api/repos/%s/%s/chown"
-	pathRepair            = "%s/api/repos/%s/%s/repair"
-	pathBuilds            = "%s/api/repos/%s/%s/builds?%s"
+	pathSelf         = "%s/api/user"
+	pathRepos        = "%s/api/user/repos"
+	pathIncomplete   = "%s/api/builds/incomplete"
+	pathIncompleteV2 = "%s/api/builds/incomplete/v2"
+	pathReposAll     = "%s/api/repos"
+	pathChown        = "%s/api/repos/%s/%s/chown"
+	pathRepair       = "%s/api/repos/%s/%s/repair"
+	pathRepo         = "%s/repos/lookup/%s/%s"
+	// pathRepo                 = "%s/api/repos/%s/%s"
+	pathBuilds = "%s/repos/%d/pipelines?%s"
+	// pathBuilds            = "%s/api/repos/%s/%s/builds?%s"
 	pathBuild             = "%s/api/repos/%s/%s/builds/%v"
 	pathApprove           = "%s/api/repos/%s/%s/builds/%d/approve/%d"
 	pathDecline           = "%s/api/repos/%s/%s/builds/%d/decline/%d"
@@ -272,11 +274,25 @@ func (c *client) BuildLast(owner, name, branch string) (*Build, error) {
 	return out, err
 }
 
+func (c *client) RepoIDFromFullName(owner, name string) int64 {
+	// FIXME: Get repo ID from ns and name
+	out, err := c.Repo(owner, name)
+	if err != nil {
+		return -1
+	}
+	return out.ID
+}
+
 // BuildList returns a list of recent builds for the
 // the specified repository.
+// FIXME: Rename to "Pipelines"
+// FIXME: Get repo ID, somehow
 func (c *client) BuildList(owner, name string, opts ListOptions) ([]*Build, error) {
 	var out []*Build
-	uri := fmt.Sprintf(pathBuilds, c.addr, owner, name, encodeListOptions(opts))
+
+	// uri := fmt.Sprintf(pathBuilds, c.addr, owner, name, encodeListOptions(opts))
+	uri := fmt.Sprintf(pathBuilds, c.addr, c.RepoIDFromFullName(owner, name), encodeListOptions(opts))
+	fmt.Printf("using uri %s\n", uri)
 	err := c.get(uri, &out)
 	return out, err
 }
